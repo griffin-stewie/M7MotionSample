@@ -25,11 +25,6 @@
 {
     BOOL result = NO;
     
-    result = activity.stationary;
-    if (result) {
-        return @"stationary";
-    }
-    
     result = activity.walking;
     if (result) {
         return @"walking";
@@ -43,6 +38,11 @@
     result = activity.automotive;
     if (result) {
         return @"automotive";
+    }
+
+    result = activity.stationary;
+    if (result) {
+        return @"stationary";
     }
     
     result = activity.unknown;
