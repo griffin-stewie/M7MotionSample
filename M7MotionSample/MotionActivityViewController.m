@@ -45,14 +45,15 @@
 {
     if ([CMMotionActivityManager isActivityAvailable]) {
         self.motionActivitiyManager = [[CMMotionActivityManager alloc] init];
+        __weak typeof(self) weakSelf = self;
         [self.motionActivitiyManager startActivityUpdatesToQueue:[NSOperationQueue mainQueue]
                                                      withHandler:^(CMMotionActivity *activity) {
                                                          NSLog(@"%s %@", __PRETTY_FUNCTION__, activity);
-                                                         [self.logger appendText:[activity description]];
-                                                         [self.activities insertObject:activity atIndex:0];
-                                                         [self.tableView beginUpdates];
-                                                         [self.tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
-                                                         [self.tableView endUpdates];
+                                                         [weakSelf.logger appendText:[activity description]];
+                                                         [weakSelf.activities insertObject:activity atIndex:0];
+                                                         [weakSelf.tableView beginUpdates];
+                                                         [weakSelf.tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
+                                                         [weakSelf.tableView endUpdates];
                                                      }];
         [self.navigationItem.rightBarButtonItem setTitle:NSLocalizedString(@"Stop", nil)];
         [self.navigationItem.rightBarButtonItem setAction:@selector(stopUpdateActivity)];

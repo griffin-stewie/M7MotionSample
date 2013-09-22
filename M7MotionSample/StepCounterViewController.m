@@ -29,6 +29,7 @@
 - (IBAction)startStopAction:(id)sender
 {
     UIButton *button = (UIButton *)sender;
+    __weak typeof(self) weakSelf = self;
     if ([[[button titleLabel] text] isEqualToString:@"Start"]) {
         if ([CMStepCounter isStepCountingAvailable]) {
             [self fadeAnimationVisible:NO];
@@ -39,7 +40,7 @@
                                                      updateOn:3
                                                   withHandler:^(NSInteger numberOfSteps, NSDate *timestamp, NSError *error) {
                                                       NSLog(@"%s %ld %@ %@", __PRETTY_FUNCTION__, numberOfSteps, timestamp, error);
-                                                      self.stepCountLabel.text = [@(numberOfSteps) stringValue];
+                                                      weakSelf.stepCountLabel.text = [@(numberOfSteps) stringValue];
                                                   }];
         }
     } else {
@@ -58,8 +59,8 @@
                                              toQueue:[NSOperationQueue mainQueue]
                                          withHandler:^(NSInteger numberOfSteps, NSError *error) {
                                              NSLog(@"%s %ld %@", __PRETTY_FUNCTION__, numberOfSteps, error);
-                                             [self fadeAnimationVisible:YES];
-                                             self.totalStepsLabel.text = [@(numberOfSteps) stringValue];
+                                             [weakSelf fadeAnimationVisible:YES];
+                                             weakSelf.totalStepsLabel.text = [@(numberOfSteps) stringValue];
                                          }];
     }
 }
