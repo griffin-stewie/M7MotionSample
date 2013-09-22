@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface MotionActivityViewController : UITableViewController
-
+- (IBAction)returnAction:(UIStoryboardSegue *)segue;
 @end

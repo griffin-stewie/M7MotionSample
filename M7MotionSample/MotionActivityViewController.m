@@ -7,6 +7,7 @@
 //
 
 #import "MotionActivityViewController.h"
+#import "DateSelectViewController.h"
 #import "ActivityCell.h"
 #import "Logger.h"
 
@@ -28,10 +29,6 @@
                                                                              action:@selector(startUpdateActivity)];
     
     
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Query", nil)
-                                                                             style:UIBarButtonItemStylePlain
-                                                                            target:self
-                                                                            action:@selector(query)];
 }
 
 - (void)didReceiveMemoryWarning
@@ -55,35 +52,11 @@
     return _motionActivitiyManager;
 }
 
-- (void)query
-{
-//    NSDate *now = [NSDate date];
-//    NSCalendar *gregorian = [[NSCalendar alloc]
-//                             initWithCalendarIdentifier:NSGregorianCalendar];
-//    NSDateComponents *comps = [gregorian components:NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay | NSCalendarUnitHour fromDate:now];
-//    [comps setHour:0];
-//    NSDate *today = [gregorian dateFromComponents:comps];
-//
-//    [self.motionActivitiyManager queryActivityStartingFromDate:today
-//                                                        toDate:now
-//                                                       toQueue:[NSOperationQueue mainQueue]
-//                                                   withHandler:^(NSArray *activities, NSError *error) {
-//                                                       self.activities = [NSMutableArray arrayWithArray:activities];
-//                                                       [self.tableView reloadData];
-//                                                   }];
-    
-    
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Start Date", nil)
-                                                    message:nil
-                                                   delegate:self
-                                          cancelButtonTitle:NSLocalizedString(@"Cancel", nil)
-                                          otherButtonTitles:NSLocalizedString(@"Done", nil), nil];
-    alert.conten
-}
-
 - (void)startUpdateActivity
 {
     if ([CMMotionActivityManager isActivityAvailable]) {
+        [self.activities removeAllObjects];
+        [self.tableView reloadData];
         [self.motionActivitiyManager startActivityUpdatesToQueue:[NSOperationQueue mainQueue]
                                                      withHandler:^(CMMotionActivity *activity) {
                                                          NSLog(@"%s %@", __PRETTY_FUNCTION__, activity);
@@ -132,8 +105,43 @@
     ActivityCell *cell = (ActivityCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     
     CMMotionActivity *activity = [self.activities objectAtIndex:indexPath.row];
+    NSLog(@"%s %@", __PRETTY_FUNCTION__, activity);
     cell.activity = activity;
     return cell;
+}
+
+- (IBAction)returnAction:(UIStoryboardSegue *)segue
+{
+    
+}
+
+- (BOOL)canPerformUnwindSegueAction:(SEL)action fromViewController:(UIViewController *)fromViewController withSender:(id)sender
+{
+    NSLog(@"%s %@", __PRETTY_FUNCTION__, fromViewController);
+    DateSelectViewController *vc = (DateSelectViewController *)fromViewController;
+    [self fetchActivitiesFromDate:vc.fromDate toDate:vc.toDate];
+    return [super canPerformUnwindSegueAction:action fromViewController:fromViewController withSender:sender];
+}
+
+- (void)fetchActivitiesFromDate:(NSDate *)fromDate toDate:(NSDate *)toDate;
+{
+    __weak typeof(self) weakSelf = self;
+    [self.motionActivitiyManager queryActivityStartingFromDate:fromDate
+                                                        toDate:toDate
+                                                       toQueue:[NSOperationQueue mainQueue]
+                                                   withHandler:^(NSArray *activities, NSError *error) {
+                                                       if (error) {
+                                                           UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", nil)
+                                                                                                           message:[error description]
+                                                                                                          delegate:nil
+                                                                                                 cancelButtonTitle:NSLocalizedString(@"OK", nil)
+                                                                                                 otherButtonTitles:nil, nil];
+                                                           [alert show];
+                                                           return ;
+                                                       }
+                                                       weakSelf.activities = [activities mutableCopy];
+                                                       [weakSelf.tableView reloadData];
+                                                   }];
 }
 
 @end

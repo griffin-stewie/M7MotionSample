@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E31F309517EF069900F825CF /* DatePickerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E31F309417EF069900F825CF /* DatePickerCell.m */; };
+		E334EC1917EEA80900728252 /* DateSelectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E334EC1817EEA80900728252 /* DateSelectViewController.m */; };
 		E3565DC517EC320E006341C5 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E3565DC417EC320E006341C5 /* Foundation.framework */; };
 		E3565DC717EC320E006341C5 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E3565DC617EC320E006341C5 /* CoreGraphics.framework */; };
 		E3565DC917EC320E006341C5 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E3565DC817EC320E006341C5 /* UIKit.framework */; };
@@ -38,6 +40,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		E31F309317EF069900F825CF /* DatePickerCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DatePickerCell.h; sourceTree = "<group>"; };
+		E31F309417EF069900F825CF /* DatePickerCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DatePickerCell.m; sourceTree = "<group>"; };
+		E334EC1717EEA80900728252 /* DateSelectViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DateSelectViewController.h; sourceTree = "<group>"; };
+		E334EC1817EEA80900728252 /* DateSelectViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DateSelectViewController.m; sourceTree = "<group>"; };
 		E3565DC117EC320E006341C5 /* M7MotionSample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = M7MotionSample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E3565DC417EC320E006341C5 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		E3565DC617EC320E006341C5 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -132,6 +138,10 @@
 				E3565DDA17EC320E006341C5 /* StepCounterViewController.m */,
 				E3565DDC17EC320E006341C5 /* MotionActivityViewController.h */,
 				E3565DDD17EC320E006341C5 /* MotionActivityViewController.m */,
+				E334EC1717EEA80900728252 /* DateSelectViewController.h */,
+				E334EC1817EEA80900728252 /* DateSelectViewController.m */,
+				E31F309317EF069900F825CF /* DatePickerCell.h */,
+				E31F309417EF069900F825CF /* DatePickerCell.m */,
 				E3565E4517EDA891006341C5 /* ActivityCell.h */,
 				E3565E4617EDA891006341C5 /* ActivityCell.m */,
 				E3565E4817EE7E41006341C5 /* Logger.h */,
@@ -268,12 +278,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E334EC1917EEA80900728252 /* DateSelectViewController.m in Sources */,
 				E3565E4717EDA891006341C5 /* ActivityCell.m in Sources */,
 				E3565E4A17EE7E41006341C5 /* Logger.m in Sources */,
 				E3565DDE17EC320E006341C5 /* MotionActivityViewController.m in Sources */,
 				E3565DD517EC320E006341C5 /* AppDelegate.m in Sources */,
 				E3565DDB17EC320E006341C5 /* StepCounterViewController.m in Sources */,
 				E3565DD117EC320E006341C5 /* main.m in Sources */,
+				E31F309517EF069900F825CF /* DatePickerCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
