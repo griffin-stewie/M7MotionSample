@@ -26,6 +26,12 @@
                                                                               style:UIBarButtonItemStylePlain
                                                                              target:self
                                                                              action:@selector(startUpdateActivity)];
+    
+    
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Query", nil)
+                                                                             style:UIBarButtonItemStylePlain
+                                                                            target:self
+                                                                            action:@selector(query)];
 }
 
 - (void)didReceiveMemoryWarning
@@ -41,10 +47,43 @@
     return _logger;
 }
 
+- (CMMotionActivityManager *)motionActivitiyManager
+{
+    if (_motionActivitiyManager == nil) {
+        _motionActivitiyManager = [[CMMotionActivityManager alloc] init];
+    }
+    return _motionActivitiyManager;
+}
+
+- (void)query
+{
+//    NSDate *now = [NSDate date];
+//    NSCalendar *gregorian = [[NSCalendar alloc]
+//                             initWithCalendarIdentifier:NSGregorianCalendar];
+//    NSDateComponents *comps = [gregorian components:NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay | NSCalendarUnitHour fromDate:now];
+//    [comps setHour:0];
+//    NSDate *today = [gregorian dateFromComponents:comps];
+//
+//    [self.motionActivitiyManager queryActivityStartingFromDate:today
+//                                                        toDate:now
+//                                                       toQueue:[NSOperationQueue mainQueue]
+//                                                   withHandler:^(NSArray *activities, NSError *error) {
+//                                                       self.activities = [NSMutableArray arrayWithArray:activities];
+//                                                       [self.tableView reloadData];
+//                                                   }];
+    
+    
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Start Date", nil)
+                                                    message:nil
+                                                   delegate:self
+                                          cancelButtonTitle:NSLocalizedString(@"Cancel", nil)
+                                          otherButtonTitles:NSLocalizedString(@"Done", nil), nil];
+    alert.conten
+}
+
 - (void)startUpdateActivity
 {
     if ([CMMotionActivityManager isActivityAvailable]) {
-        self.motionActivitiyManager = [[CMMotionActivityManager alloc] init];
         [self.motionActivitiyManager startActivityUpdatesToQueue:[NSOperationQueue mainQueue]
                                                      withHandler:^(CMMotionActivity *activity) {
                                                          NSLog(@"%s %@", __PRETTY_FUNCTION__, activity);
