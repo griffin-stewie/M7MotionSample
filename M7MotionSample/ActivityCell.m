@@ -12,7 +12,7 @@
 
 - (void)setActivity:(CMMotionActivity *)activity
 {
-    if (_activity == nil) {
+    if (_activity != activity) {
         _activity = activity;
         
         self.motionTypeLabel.text = [self motionTypeTextFromActivity:_activity];
